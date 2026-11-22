@@ -1,18 +1,29 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import React from 'react';
+import { Stack } from 'expo-router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: '#f5f7f2' },
+          headerTintColor: '#34442b',
+          headerTitleStyle: { fontWeight: '600' },
+        }}
+      >
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: true,
+            title: 'Home',
+          }}
+        />
+        <Stack.Screen
+          name="create-log"
+          options={{ title: 'New Inspection Log', presentation: 'modal' }}
+        />
+      </Stack>
+    </SafeAreaProvider>
   );
 }
